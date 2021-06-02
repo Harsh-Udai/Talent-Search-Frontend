@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+.SignupText{
+    margin-top:10px;
+    font-size: 200%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.font{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%;
+}

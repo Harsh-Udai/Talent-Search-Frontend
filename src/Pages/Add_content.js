@@ -166,7 +166,7 @@ export default function FullScreenDialog(props) {
             setProgress(percentage)
             }
           };
-
+ 
           
           axios.post("http://localhost:5000/ImageUpload",formData,config)
               .then((response) => {

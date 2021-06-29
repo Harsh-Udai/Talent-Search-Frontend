@@ -27,11 +27,11 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static"  style={{backgroundColor:'#232931',color:'white',boxShadow:'none'}}>
+      <AppBar position="static"  style={{backgroundColor:'#212121',color:'white',boxShadow:'none'}}>
         <Toolbar>
           
           <Typography variant="h6"  className={classes.title}>
-          <Link  to='/' style={{textDecoration:'none',color:'white'}}><span className={'text'} >Talent Search</span></Link>
+          <Link  to='/' style={{textDecoration:'none',color:'white'}}><span style={{backgroundColor:'#212121'}} className={'text'} >Talent Search</span></Link>
           </Typography>
           <Link  to='/Login' style={{textDecoration:'none',color:'white'}}><Button  color="inherit"><span style={{fontFamily: 'Open Sans',textTransform:'capitalize',fontSize:'127%'}}>Login</span></Button></Link>
           <Link  to='/Signup' style={{textDecoration:'none',color:'white'}}><Button color="inherit"><span style={{fontFamily: 'Open Sans',textTransform:'capitalize',fontSize:'127%'}}>Signup</span></Button></Link>

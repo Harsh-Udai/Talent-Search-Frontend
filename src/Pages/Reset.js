@@ -9,6 +9,7 @@ import Otp from './Otp';
 import Greet from './Greet';
 import ImageReset from '../Assets/undraw_Envelope_re_f5j4.svg';
 import axios from 'axios';
+import imageD from '../Assets/mode2.svg';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -57,6 +58,7 @@ export default function Reset(){
         }
     }
     const Handle_Email = (e)=>{
+        setR(false)
         const value = e.target.value;
         if(emailMark(value)){
             setEmail(value);
@@ -163,35 +165,42 @@ export default function Reset(){
             
             <Navbar />
             {Line ? <Back start={Line} /> :null}
-            <div style={{display: 'flex',justifyContent: 'center',marginTop:'60px'}}>
-                <div style={{border:'1px solid #A6ACAF',padding:'30px',borderRadius:'7px',textAlign:'center'}}>
-                <p className="SignupText">Reset Password</p>
-                    <form onSubmit={HandleLogin} className={classes.root} autoComplete="off">
-                        
-                        
-                        <TextField error={emailE} onChange={Handle_Email} id="outlined-basic" type='email' label="Email" variant="outlined" />
-                        <br></br>
-                        
-                        <TextField error={passwordE} onChange={Handle_Pass} id="outlined-basic" type='password' label="New Password" variant="outlined" />
-                        <br></br>
+            <div className="resetD">
+                <img alt="." style={{marginTop:'-150px'}} width="30%" src={imageD} />
+                <div style={{color:'black',marginTop:'120px'}}>
+                    <div style={{backgroundColor:'white',height:'330px',marginBottom:'30px',padding:'30px',borderRadius:'7px',textAlign:'center'}}>
+                    <p className="SignupText font1">Reset Password</p>
+                        <form onSubmit={HandleLogin} className={classes.root} autoComplete="off">
+                            
+                            
+                            <TextField  error={emailE} onChange={Handle_Email} id="outlined-basic" type='email' label={<span style={{color:'black'}} className="font1">Email</span>} variant="outlined" />
+                            <br></br>
+                            
+                            <TextField error={passwordE} onChange={Handle_Pass} id="outlined-basic" type='password' label={<span style={{color:'black'}} className="font1">New Password</span>} variant="outlined" />
+                            <br></br>
 
-                        <div>
-                            <Button onClick={HandleLogin} variant="contained" color="primary">
-                                Login
-                            </Button>
-                        </div>
-                    </form>
+                            <div>
+                                <Button onClick={HandleLogin} variant="outlined" color="primary">
+                                    <span  className="font1">Reset</span>
+                                </Button>
+                            </div>
+                        </form>
 
+                        
+                    </div>
+                   
                     {red ?<div style={{display:'flex',justifyContent: 'center'}}>
-                        <Alert style={{width:'130px',height:'32px',fontSize:'90%'}} severity="error"><span >Check Details!</span></Alert>
+                        <Alert style={{width:'230px',height:'32px',fontSize:'90%'}} severity="error"><span className="font1">Check Details!</span></Alert>
                     </div>:null}
 
                     {cancel ?<div style={{display:'flex',justifyContent: 'center'}}>
-                        <Alert style={{width:'130px',height:'32px',fontSize:'90%'}} severity="error"><span >NO Account!</span></Alert>
+                        <Alert style={{width:'230px',height:'32px',fontSize:'90%'}} severity="error"><span className="font1">NO Account!</span></Alert>
                     </div>:null}
+                    </div>
+                
 
-                </div>
             </div>
+            
             {nextS ? <Otp red={RedE} blue={bar} start={nextS} change={changeOTP} valCh={setterOtp} checkOTP={checkOtp} /> : null}
             <Greet photo={ImageReset} text='Updated' start={finalSC} />
         </div>

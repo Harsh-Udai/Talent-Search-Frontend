@@ -7,6 +7,10 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Back from '../Components/Backdrop';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom';
+import imgeL from '../Assets/mode1.svg';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -24,12 +28,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Login(props){
-    console.log(props);
+    
     const classes = useStyles();
 
     /* States for data */
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const [ch,setCH] = useState(false);
     /* States for data */
 
     /* States for Error */
@@ -38,6 +43,7 @@ export default function Login(props){
     const [Line,setL] =useState(false);
     const [red,setR] = useState(false);
     const [wrong,setWrong] = useState(false);
+    const [prog,setProg] = useState(false);
     /* States for Error */
 
     const emailMark = (val)=>{
@@ -49,6 +55,7 @@ export default function Login(props){
         }
     }
     const Handle_Email = (e)=>{
+        setR(false);
         const value = e.target.value;
         if(emailMark(value)){
             setEmail(value);
@@ -60,6 +67,7 @@ export default function Login(props){
     }
 
     const Handle_Pass = (e)=>{
+        setR(false);
         const value = e.target.value;
         if(value.length>=6){
             setPassword(value);
@@ -70,10 +78,21 @@ export default function Login(props){
         }
     }
 
+    //////////////////////////////////////////////////////////////////
+    const encode=(value)=>{
+        let arr=[]
+        for (let i=0;i<value.length;i++){
+            arr.push(value.charCodeAt(i))
+        }
+        return arr;
+    }
+    //////////////////////////////////////////////////////////////////
+
+
     const HandleLogin = (e)=>{
         e.preventDefault();
         if(!emailE && !passwordE && email!=='' && password!==''){
-            
+            setProg(true);
             setR(false)
             axios.post('http://localhost:5000/Login',{
                 Email:email,
@@ -84,6 +103,9 @@ export default function Login(props){
                     setWrong(false)
                     setL(true)       
                     props.setuser(data.data)
+                    setCH(true);
+                    sessionStorage.setItem('!@#$%^&*()_+',JSON.stringify({milestone: encode(data.data.Name),milestone1: data.data.init_token,milestone2: encode(data.data.Email) }));
+                    setProg(false);
                 }
                 else{
                     setWrong(true)
@@ -102,42 +124,55 @@ export default function Login(props){
         }
     }
 
+    if(ch){
+        return <Redirect to="/Dashboard" />
+    }
 
     return(
         <div>
             
             <Navbar />
-            {Line ? <Back start={Line} /> :null}
-            <div style={{display: 'flex',justifyContent: 'center',marginTop:'60px'}}>
-                <div style={{border:'1px solid #A6ACAF',padding:'30px',borderRadius:'7px',textAlign:'center'}}>
-                <p className="SignupText">Login</p>
-                    <form className={classes.root} autoComplete="off">
-                        
-                        
-                        <TextField error={emailE} onChange={Handle_Email} id="outlined-basic" type='email' label="Email" variant="outlined" />
-                        <br></br>
-                        <TextField error={passwordE} onChange={Handle_Pass} id="outlined-basic" type='password' label="Password" variant="outlined" />
-                        <br></br>
-                        
-                        <div>
-                            <Button onClick={HandleLogin} variant="contained" color="primary">
-                                Login
+            {/* {Line ? <Back start={Line} /> :null} */}
+            <div className="resetD">
+                <img style={{marginTop:'-100px'}} src={imgeL} width="50%" />
+            
+                    <div style={{marginTop:'100px'}}>
+                        <div style={{marginBottom:'30px',backgroundColor:'white',padding:'20px',height:'390px',borderRadius:'10px',textAlign:'center'}}>
+                        <p className="SignupText font1"><span>Login</span></p>
+                            <form className={classes.root} autoComplete="off">
+                                
+                                
+                                <TextField error={emailE} onChange={Handle_Email} id="outlined-basic" type='email' label={<span style={{color:'black'}} className="font1">Email</span>} variant="outlined" />
+                                <br></br>
+                                <TextField error={passwordE} onChange={Handle_Pass} id="outlined-basic" type='password' label={<span style={{color:'black'}} className="font1">Password</span>} variant="outlined" />
+                                <br></br>
+                                
+                                <div>
+                                    
+                                    <span style={{width:'50%',height:'50%'}}>
+                                        
+                                    </span>
+                                    <Button onClick={HandleLogin} variant="outlined" color="primary">
+                                     {prog ? <CircularProgress style={{marginRight:'10px'}} size={20} />:null}<span className="font1">Login</span>
+                                    </Button>
+                                </div>
+                            </form>
+
+                            <Link style={{textDecoration:'none',color:'black'}} to='/Reset'><Button variant="outlined" color="primary">
+                            <span className="font1">Forgot Password</span>
                             </Button>
+                            </Link>
+
                         </div>
-                    </form>
-
                     {red ?<div style={{display:'flex',justifyContent: 'center'}}>
-                        <Alert style={{width:'130px',height:'32px',fontSize:'90%'}} severity="error"><span >Check Details!</span></Alert>
-                    </div>:null}
+                            <Alert style={{width:'230px',height:'32px',fontSize:'90%'}} severity="error"><span className="font1">Check Details!</span></Alert>
+                        </div>:null}
 
-                    {wrong ?<div style={{display:'flex',justifyContent: 'center'}}>
-                        <Alert style={{width:'130px',height:'32px',fontSize:'90%'}} severity="error"><span >No Account!</span></Alert>
-                    </div>:null}
-
-                    <Link to='/Reset'>Forgot Password</Link>
+                        {wrong ?<div style={{display:'flex',justifyContent: 'center'}}>
+                            <Alert style={{width:'230px',height:'32px',fontSize:'90%'}} severity="error"><span className="font1">No Account!</span></Alert>
+                        </div>:null}
 
                 </div>
-               
             </div>
         </div>
     )

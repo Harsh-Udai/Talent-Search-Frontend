@@ -11,6 +11,7 @@ import Greet from './Greet';
 import Image_Greet from '../Assets/undraw_Agreement_re_d4dv.svg'
 import axios from 'axios';
 import BackDrop from '../Components/Backdrop';
+import imgageg from '../Assets/pale-686.png'
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -135,6 +136,7 @@ export default function Signup(){
 
     const SubmitData = (e)=>{
         e.preventDefault();
+        setDetail(false);
         if(name.length!==0 && email.length!==0 && pass.length!==0 && bio.length!==0){
             setFC(true);
             setDetail(false);
@@ -217,36 +219,35 @@ export default function Signup(){
     return(
         <div>
             <Navbar />
-            <div style={{display: 'flex',justifyContent: 'center',marginTop:'60px'}}>
-                <div style={{border:'1px solid #A6ACAF',padding:'20px',borderRadius:'7px',textAlign:'center'}}>
-                    <p className="SignupText">Signup</p>
-                    <form className={classes.root} autoComplete="off">
+            <div className="signup">
+                
+                <div style={{width:'50%'}}>
+                    <img style={{marginTop:'70px'}} src={imgageg} width="70%"></img>
+                    <p style={{fontSize:'300%',color:'white'}}>Subscribe, Explore & Enjoy</p>
+                </div>
+
+            <div style={{height:'73%',borderRadius:'10px',marginTop:'60px',backgroundColor:'white'}}>
+                <div style={{padding:'10px',borderRadius:'7px',textAlign:'center'}}>
+                    <p className="SignupText font1">Signup</p>
+                    <form className={classes.root}>
                         
-                        <TextField error={nameE} onChange={HandleData_Name} type="text" name="name" id="outlined-basic" label="Username" variant="outlined" />
+                        <TextField error={nameE} onChange={HandleData_Name} type="text" name="name" id="outlined-basic" label={<span className="font1" style={{color:'black'}}>Username</span>} variant="outlined" />
                         <br></br>
-                        <TextField error={emailE} onChange={HandleData_Email} type="email" name="email"  id="outlined-basic" label="Email" variant="outlined" />
+                        <TextField error={emailE} onChange={HandleData_Email} type="email" name="email"  id="outlined-basic" label={<span className="font1" style={{color:'black'}}>Email</span>} variant="outlined" />
                         <br></br>
-                        <TextField error={passE} onChange={HandleData_Pass} type="password" name="pass" id="outlined-basic" label="Password" variant="outlined" />
+                        <TextField error={passE} onChange={HandleData_Pass} type="password" name="pass" id="outlined-basic" label={<span className="font1" style={{color:'black'}}>Password</span>} variant="outlined" />
                         <br></br>
-                        <TextField error={bioE} onChange={HandleData_Bio} type="text" name="bio" id="outlined-basic" label="Bio" variant="outlined" multiline
+                        <TextField error={bioE} onChange={HandleData_Bio} type="text" name="bio" id="outlined-basic" label={<span className="font1" style={{color:'black'}}>Bio</span>} variant="outlined" multiline
           rows={4} />
                         <br></br>
                         <div style={{marginBottom:'0px',marginTop:'20px'}}>
-                            <Button onClick={SubmitData} variant="contained"  color="primary">
-                            <span style={{width:'70px',textTransform:'capitalize'}} className="font">Signup</span>
+                            <Button onClick={SubmitData} variant="outlined"  color="primary">
+                            <span style={{width:'70px',fontSize:'120%',textTransform:'capitalize'}} className="font1">Signup</span>
                             </Button>
                         </div>
                     </form>
                                         
-                    {detail ? <div style={{display:'flex',justifyContent: 'center',marginTop:'30px'}}>
-                    <br></br>
-                        <Alert style={{width:'200px'}} severity="error">Check All the Fields!</Alert> 
-                    </div> : null}
-
-                    {emailU ? <div style={{display:'flex',justifyContent: 'center',marginTop:'30px'}}>
-                    <br></br>
-                        <Alert style={{width:'200px'}} severity="error">Email in USE!</Alert> 
-                    </div> : null}
+                    
                     
                     {<BackDrop start={firstC} />}
 
@@ -265,7 +266,22 @@ export default function Signup(){
                     <Greet photo={Image_Greet} text="Created" start={finalSC} />
 
                 </div>
+                {detail ? <div style={{display:'flex',justifyContent: 'center',marginTop:'50px'}}>
+                <br></br>
+                    <Alert style={{width:'230px'}} severity="error"><span className="font1">Check All the Fields!</span></Alert> 
+                </div> : null}
+
+                {emailU ? <div style={{display:'flex',justifyContent: 'center',marginTop:'50px'}}>
+                <br></br>
+                    <Alert style={{width:'230px'}} severity="error"><span className="font1">Email in USE!</span></Alert> 
+                </div> : null}
             </div>
+            
+            
+            </div>
+
+            
+            
         </div>
     )
 }

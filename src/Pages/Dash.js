@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,13 +23,10 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import DescriptionIcon from '@material-ui/icons/Description';
 import AppsIcon from '@material-ui/icons/Apps';
-import {BrowserRouter as Router, Switch, Route,Link} from "react-router-dom";
-
+import {Link} from "react-router-dom";
+import AddContent from '../Containers/Add_Content';
 import DashHome from './Dash_home';
-import DashCard from './Dash_card';
-import DashScript from './Dash_scripts';
-import DashVideo from './Dash_video';
-import Content from './Dash_AddContent';
+import {Redirect} from 'react-router-dom';
 const drawerWidth = 240;
 
 
@@ -37,6 +34,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -44,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    height:'55px'
+    height:'55px',
+    
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -116,12 +115,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MiniDrawer(props) {
 
-    /* Imp Work States for DashBoard */
+  console.log(props);
+
+  useEffect(()=>{
+    
+    setTimeout(()=>{
+      props.setAnimat(false);
+    },2000)
+
+  },[])
 
 
+  /* Imp Work States for DashBoard */
+  
+  const [showHome,setShowHome] = useState(true);
+  
+  /* Imp Work States for DashBoard */
 
-     /* Imp Work States for DashBoard */
-
+  const changePage = (val)=>{
+    setShowHome(val);
+  }
 
 
   const classes = useStyles();
@@ -142,16 +155,33 @@ export default function MiniDrawer(props) {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
+    
     setAnchorEl(event.currentTarget);
+    
+  };
+  const handleProfileMenuOpen1 = (event) => {
+    setAnchorEl(event.currentTarget);
+    sessionStorage.removeItem('!@#$%^&*()_+');
+    props.unsetuser();
   };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
+  
 
   const handleMenuClose = () => {
+   
     setAnchorEl(null);
     handleMobileMenuClose();
+   
+  };
+
+  const handleMenuClose1 = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    sessionStorage.removeItem('!@#$%^&*()_+');
+    props.unsetuser();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -169,8 +199,8 @@ export default function MiniDrawer(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <Link to="/dashboard/Profile" style={{textDecoration:'none',color:'black'}}><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
+      <MenuItem onClick={handleMenuClose1}>Logout</MenuItem>
     </Menu>
   );
 
@@ -190,25 +220,31 @@ export default function MiniDrawer(props) {
         
         <p>Profile</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleProfileMenuOpen1}>
         
         <p>Logout</p>
       </MenuItem>
     </Menu>
   );
 
+  if(props.main.talent_setter.Email===''){
+    return <Redirect to="/Dashboard" />
+  }
+
   return (
-    <Router>
+    <>
+    
     <div className={classes.root}>
+      
       <CssBaseline />
       <AppBar
-       
+        style={{backgroundColor:'#222831'}}
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
         >
-        <Toolbar>
+        <Toolbar >
             <IconButton
                 color="inherit"
                 aria-label="open drawer"
@@ -220,7 +256,7 @@ export default function MiniDrawer(props) {
             >
                 <MenuIcon />
             </IconButton>
-            <Typography variant="h6" style={{marginTop:'-10px'}} noWrap>
+            <Typography  variant="h6" style={{marginTop:'-10px'}} noWrap>
                 <span className='text'>Talent Search</span>
             </Typography>
         
@@ -253,6 +289,7 @@ export default function MiniDrawer(props) {
       
 
       <Drawer
+        
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -271,70 +308,63 @@ export default function MiniDrawer(props) {
           </IconButton>
         </div>
         {/* <Divider /> */}
-        <Link to='/dash' style={{textDecoration:'none',color:'black'}}><List>
+        <Link to='/Dashboard' style={{textDecoration:'none',color:'black'}}><List>
          
             <ListItem button >
-              <ListItemIcon><AppsIcon /></ListItemIcon>
-              <ListItemText primary={'Home'} />
+              <ListItemIcon style={{marginLeft:'7px'}}><AppsIcon /></ListItemIcon>
+              <ListItemText primary={<span className="font1">Home</span>} />
             </ListItem>
           
         </List></Link>
-        <Link to='/dash/video' style={{textDecoration:'none',color:'black'}}><List>
+        <Link to='/Dashboard/Videos' style={{textDecoration:'none',color:'black'}}><List>
          
             <ListItem button >
-              <ListItemIcon><VideoLibraryIcon /></ListItemIcon>
-              <ListItemText primary={'Videos'} />
+              <ListItemIcon style={{marginLeft:'7px'}}><VideoLibraryIcon /></ListItemIcon>
+              <ListItemText primary={<span className="font1">Videos</span>} />
             </ListItem>
           
         </List></Link>
-        <Link to='/dash/image' style={{textDecoration:'none',color:'black'}}><List>
+        <Link to='/Dashboard/Images' style={{textDecoration:'none',color:'black'}}><List>
          
             <ListItem button >
-            <ListItemIcon><PhotoLibraryIcon /></ListItemIcon>
-            <ListItemText primary={'Images'} />
+            <ListItemIcon style={{marginLeft:'7px'}}><PhotoLibraryIcon /></ListItemIcon>
+            <ListItemText primary={<span className="font1">Images</span>} />
             </ListItem>
         
         </List></Link>
-        <Link to='/dash/scripts' style={{textDecoration:'none',color:'black'}}><List>
+        <Link to='/Dashboard/Scripts' style={{textDecoration:'none',color:'black'}}><List>
          
             <ListItem button >
-            <ListItemIcon><DescriptionIcon /></ListItemIcon>
-            <ListItemText primary={'Scripts'} />
+            <ListItemIcon style={{marginLeft:'7px'}}><DescriptionIcon /></ListItemIcon>
+            <ListItemText primary={<span className="font1">Scripts</span>} />
             </ListItem>
         
         </List></Link>
         <Divider />
         <List>
 
-            <ListItem button >
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary={'Hello Creators :)'} />
-            </ListItem>
-            <p></p>
+            
+            
           
         </List>
         
       </Drawer>
       <main className={classes.content}>
       <div className={classes.toolbar}></div>
-      
-      
-      {/* Imp Section */}
-                
-        
-            <Switch>
-                <Route exact path='/dash'  component={DashHome} />
-                <Route exact path='/dash/video' component={DashVideo} />
-                <Route exact path='/dash/image' component={DashCard} />
-                <Route exact path='/dash/scripts' component={DashScript} />
-                <Route exact path='/dash/content' component={Content} />
-            </Switch>
-        
 
+      
+      {showHome ? 
+      <div>
+          <DashHome toggleCh={changePage} />
+      </div>
+      : <AddContent start={!showHome} toggleCh={changePage} />}
+
+        
       </main>
       {renderMobileMenu}
     {renderMenu}
     </div>
-    </Router>
+    
+    </>
   );
 }

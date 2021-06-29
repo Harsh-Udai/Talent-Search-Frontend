@@ -4,9 +4,15 @@ import Home from './Pages/Home';
 import Login from './Containers/LoginContainer';
 import Signup from './Pages/Signup';
 import Reset from './Pages/Reset';
-import Dash from './Pages/Dash';
+import Entry from './Containers/EntryContainer';
+import DashVideo from './Containers/VideoContainer';
+import DashImage from './Containers/ImageContainer';
+import DashScript from './Containers/ScriptContainer';
+import VideoPlay from "./Containers/PlaybackContainer";
+import Profile from "./Containers/ProfileContainer";
 
 function App() {
+
   return (
     <div className="App">
       <Router>
@@ -17,7 +23,13 @@ function App() {
           <Route exact path='/Login' component={Login} />
           <Route exact path='/Signup' component={Signup} />
           <Route exact path='/Reset' component={Reset} />
-          <Route exact path='/dash' component={Dash} />
+          <Route exact path='/Dashboard' component={Entry} />
+          <Route exact path='/Dashboard/Videos' component={DashVideo} />
+          <Route exact path='/Dashboard/Images' component={DashImage} />
+          <Route exact path='/Dashboard/Scripts' component={DashScript} />
+          <Route exact path="/Dashboard/Videos/Play" component={VideoPlay} />
+          <Route exact path="/Dashboard/Profile" component={Profile} />
+
         </Switch>
 
       </Router>

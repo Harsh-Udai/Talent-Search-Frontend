@@ -1,4 +1,4 @@
-import {SETUSER, UNSETUSER} from '../constants';
+import {SETUSER, UNSETUSER,ANIMATE} from '../constants';
 
 
 export const setuser = (data)=>{
@@ -11,6 +11,13 @@ export const setuser = (data)=>{
 export const unsetuser = (data)=>{
     return{
         type:UNSETUSER,
+        data
+    }
+}
+
+export const setAnimat = (data)=>{
+    return{
+        type:ANIMATE,
         data
     }
 }

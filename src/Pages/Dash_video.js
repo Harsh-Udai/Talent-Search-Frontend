@@ -1,70 +1,126 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
+import imageVideo from '../Assets/abstract-vr.png';
+import './Video.css';
+import axios from 'axios';
+import {Link} from 'react-router-dom';
+import CardMedia from '@material-ui/core/CardMedia';
+import { makeStyles } from '@material-ui/core/styles';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import Button from '@material-ui/core/Button'
+import Chip from '@material-ui/core/Chip';
+import Backdrop from '../Components/Backdrop';
+import {Redirect} from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const data = [
-  {
-    src:
-      'https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ',
-    title: 'Don Diablo @ Tomorrowland Main Stage 2019 | Official…',
-    channel: 'Don Diablo',
-    views: '396 k views',
-    createdAt: 'a week ago',
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    maxWidth: 345,
+    margin: theme.spacing(2),
   },
-  {
-    src:
-      'https://i.ytimg.com/vi/_Uu12zY01ts/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLCpX6Jan2rxrCAZxJYDXppTP4MoQA',
-    title: 'Queen - Greatest Hits',
-    channel: 'Queen Official',
-    views: '40 M views',
-    createdAt: '3 years ago',
+  media: {
+    height: 190,
   },
-  {
-    src:
-      'https://i.ytimg.com/vi/kkLk2XWMBf8/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLB4GZTFu1Ju2EPPPXnhMZtFVvYBaw',
-    title: 'Calvin Harris, Sam Smith - Promises (Official Video)',
-    channel: 'Calvin Harris',
-    views: '130 M views',
-    createdAt: '10 months ago',
-  },
-];
+}));
+
 
 function Media(props) {
-  const { loading = false } = props;
+  
+  const classes = useStyles();
+
+  const [likes,setLikes] = useState(props.data.likes);
+
+  const [count,setcount] = useState(0);
+
+  const [sum,setSum] = useState(likes);
+  
+  
+
+  const valueCounter = ()=>{
+    
+    if(count===0){
+      
+      setcount(count+1);
+      props.ch(true)
+      axios.post('http://localhost:5000/VideosLikes',{
+        id: props.data.id,
+        status: 'increment',
+        email:props.logUser
+      },{
+        headers:{
+          'Authorization': `Bearer ${props.Token}`
+        }
+      })
+      .then((data)=>{
+        
+        setSum(data.data.likes)
+        props.ch(false)
+      })
+      .catch((e)=>{
+        console.log(e);
+      })
+
+
+    }
+    else{
+      setcount(count-1);
+      props.ch(true);
+      axios.post('http://localhost:5000/VideosLikes',{
+        id: props.data.id,
+        status: 'decrement',
+        email:props.logUser
+      },{
+        headers:{
+          'Authorization': `Bearer ${props.Token}`
+        }
+      })
+      .then((data)=>{
+        
+        setSum(data.data.likes)
+        props.ch(false);
+
+      })
+      .catch((e)=>{
+        console.log(e);
+      })
+    }
+  }
+  
 
   return (
     <Grid container wrap="wrap">
-      {(loading ? Array.from(new Array(3)) : data).map((item, index) => (
-        <Box key={index} width={310} marginRight={3.5} my={5}>
-          {item ? (
-            <img style={{ width: 210, height: 118 }} alt={item.title} src={item.src} />
-          ) : (
-            <Skeleton variant="rect" width={310} height={180} />
-          )}
-
-          {item ? (
+      
+        <Box  width={310} marginRight={3.5} my={5}>
+          
+        <Link style={{textDecoration:'none',color:'black'}} to={{ pathname: '/Dashboard/Videos/Play', query: { id:props.data.id,URL: props.data.URL}} }><CardMedia
+              className={classes.media}
+              image={props.data.URL_Image}
+              title={props.data.ContentLabel}
+            /></Link>
+                    
             <Box pr={2}>
-              <Typography gutterBottom variant="body2">
-                {item.title}
+              <Typography style={{marginTop:'10px'}} gutterBottom variant="body2">
+                <span style={{fontSize:'120%'}} className="font1"><Link style={{textDecoration:'none',color:'black'}} to={{ pathname: '/video', query: { URL: props.data.URL}} }>{props.data.ContentLabel}</Link></span>
               </Typography>
               <Typography display="block" variant="caption" color="textSecondary">
-                {item.channel}
+              <span style={{fontSize:'120%'}} className="font1">@{props.data.owner}</span>
               </Typography>
-              <Typography variant="caption" color="textSecondary">
-                {`${item.views} • ${item.createdAt}`}
-              </Typography>
+              
             </Box>
-          ) : (
-            <Box pt={0.5}>
-              <Skeleton />
-              <Skeleton width="60%" />
-            </Box>
-          )}
+
+            <div style={{marginTop:'10px'}}>
+              <Chip style={{marginRight:'10px'}} label={<span className="font1">{'Views '+props.data.views}</span>} />
+              
+              <Chip label={<span className="font1">{'Likes '+sum}</span>} />
+              <Button onClick={valueCounter} color="primary"><ThumbUpAltIcon style={{ color: '#616A6B' }}  /></Button>
+            </div>
+          
         </Box>
-      ))}
+    
     </Grid>
   );
 }
@@ -73,18 +129,68 @@ Media.propTypes = {
   loading: PropTypes.bool,
 };
 
-export default function YouTube() {
+export default function YouTube(props) {
+
+  
+  const [prog,setProg] = useState(false);
+  const [video,setVideo] = useState([]);
+  const [start,setStart] = useState(false);
+  const starBack = (val)=>{
+   
+    setStart(val)
+  }
+  useEffect(()=>{
+    setProg(true);
+    axios.get('http://localhost:5000/Videos',{
+      headers:{
+        'Authorization': `Bearer ${props.main.talent_setter.Token}`
+      }
+    })
+    .then((data)=>{
+      
+      setVideo(data.data);
+      setProg(false);
+    })
+    .catch((e)=>{
+      console.log(e);
+    })
+
+  },[])
+
+  if(props.main.talent_setter.Email===''){
+    return <Redirect to="/Dashboard" />
+  }
+
   return (
-    <div>
-        <h1 className={'text'} style={{textAlign: 'center',fontSize:'250%'}} >Videos</h1>
-        <div style={{display: 'flex',justifyContent: 'center',flexWrap:'wrap'}}>
-            
-                <Box overflow="hidden">
-                    <Media loading />
-                    <Media loading />
-                    {/* <Media /> */}
-                </Box>
-        </div>
+    <div style={{backgroundColor:'#eeeeee'}}>
+      <br></br>
+      <br></br>
+      <div className="DashVideo" >
+          <div style={{textAlign:'center'}}>
+            <img alt="." src={imageVideo}  width="50%" height="50%"></img>
+          </div>
+          <h1 className={'text'} style={{textAlign: 'center',marginTop:'20px',fontSize:'550%', color:'black'}} >Videos</h1>
+      </div>
+      <div style={{display: 'flex',justifyContent: 'center',flexWrap:'wrap'}}>
+          
+              <div style={{marginBottom:'100px',marginTop:'100px'}}>{prog ? <CircularProgress /> : null}</div>
+
+              {video.length > 0 ?
+                
+                video.map((data,index)=>{
+                  return <div key={index}><Media Token={props.main.talent_setter.Token} logUser={props.main.talent_setter.Email} ch={starBack} data={data} loading /></div>
+                })
+
+                : null
+              }
+      </div>
+
+      <div>
+
+      
+
+      </div>
+      <Backdrop start={start} />
     </div>
   );
 }

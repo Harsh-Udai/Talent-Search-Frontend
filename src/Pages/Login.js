@@ -10,7 +10,7 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import imgeL from '../Assets/mode1.svg';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+ 
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

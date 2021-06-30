@@ -46,7 +46,7 @@ export default function Facebook(props) {
       }
     })
     .then((data)=>{
-      console.log(data.data)
+      // console.log(data.data)
       setPdf(data.data);
       setProg(false);
     })
@@ -78,7 +78,7 @@ export default function Facebook(props) {
           pdf.length>0 ? 
 
           pdf.map((data,index)=>{
-            return <div style={{margin:'10px'}} key={index}> <CardS Token={props.main.talent_setter.Token} ch={starBack} likes={data.likes} id={data.id} URL={data.URL} email1={data.email} email={data.owner} label={data.ContentLabel} desc={data.ContentDescription} /> </div>
+            return <div style={{margin:'10px'}} key={index}> <CardS danger="false" Token={props.main.talent_setter.Token} ch={starBack} likes={data.likes} id={data.id} URL={data.URL} email1={data.email} email={data.owner} label={data.ContentLabel} desc={data.ContentDescription} /> </div>
           })
 
           :null

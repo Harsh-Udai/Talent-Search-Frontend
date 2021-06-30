@@ -138,7 +138,7 @@ export default function FullScreenDialog(props) {
 
       if(Type==='Image'){
         if(!LabelErr && Label.length>5 &&  !descErr && Desc.length>4 && !typeErr && Type!=='' && image!==''){
-          console.log('All set to go, Image ');
+        
           setSuccess(false);
           setLoading(true);
           setOpen1(false);
@@ -170,7 +170,7 @@ export default function FullScreenDialog(props) {
           
           axios.post("http://localhost:5000/ImageUpload",formData,config)
               .then((response) => {
-                 console.log(response);
+                
                   setSuccess(true);
                   setLoading(false);
                   setOpen(true);
@@ -191,7 +191,7 @@ export default function FullScreenDialog(props) {
       }
       else if(Type==="Video"){
         if(!LabelErr && Label.length>5 &&  !descErr && Desc.length>5 && !typeErr && Type!=='' && video!=='' && thumb!==''){
-          console.log('All set to go');
+          
           setSuccess(false);
           setLoading(true);
           setOpen1(false);
@@ -223,7 +223,7 @@ export default function FullScreenDialog(props) {
           
           axios.post("http://localhost:5000/VideoUpload",formData,config)
               .then((response) => {
-                  console.log(response)
+                  
                   setSuccess(true);
                   setLoading(false);
                   setOpen(true);
@@ -244,7 +244,7 @@ export default function FullScreenDialog(props) {
       }
       else if(Type==="Script"){
         if(!LabelErr && Label.length>5 &&  !descErr && Desc.length>5 && !typeErr && Type!=='' && script!==''){
-          console.log('All set to go');
+          
           setSuccess(false);
           setLoading(true);
           setOpen1(false);
@@ -275,7 +275,7 @@ export default function FullScreenDialog(props) {
           
           axios.post("http://localhost:5000/ScriptUpload",formData,config)
               .then((response) => {
-                  console.log(response)
+                  
                   setSuccess(true);
                   setLoading(false);
                   setOpen(true);
@@ -366,7 +366,7 @@ export default function FullScreenDialog(props) {
 
   const imageA = (e)=>{
     setIME(false);
-    console.log(e.target.files[0])
+    // console.log(e.target.files[0])
     if(e.target.files[0]!==undefined){
       const name = e.target.files[0].name.match(/\.(jpg||jpeg||png)$/)
     
@@ -389,7 +389,7 @@ export default function FullScreenDialog(props) {
   const videoA = (e)=>{
    
     setVE(false);
-    console.log(e.target.files[0])
+    // console.log(e.target.files[0])
     if(e.target.files[0]!==undefined){
       
       
@@ -427,7 +427,7 @@ export default function FullScreenDialog(props) {
 
   const scriptA = (e)=>{
     setSE(false);
-    console.log(e.target.files[0])
+    // console.log(e.target.files[0])
     if(e.target.files[0]!==undefined){
       
       

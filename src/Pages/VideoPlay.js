@@ -4,6 +4,8 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 
 export default function VideoPlay(props) {
+
+    console.log(props);
     
     useEffect(()=>{
 
@@ -31,9 +33,21 @@ export default function VideoPlay(props) {
     }
 
     return(
-        <div style={{width:'100vw', height:'100vh',backgroundColor:'#343A40',display:'flex',justifyContent:'center'}}>
-           <ReactPlayer style={{borderRadius:'10px'}}  controls={true} playing={true} width="100vw" height="100vh"  url={props.location.query.URL} />
-      
+        <div style={{width:'100%',height:'100vh',backgroundColor:'#ffffff'}}>
+            <div style={{ marginBottom:'80px',display:'flex',justifyContent:'center'}}>
+                <ReactPlayer style={{marginTop:'40px',borderRadius:'10px'}}  controls={true} playing={true} width="85vw" height="80vh"  url={props.location.query.URL} />
+            </div>
+            <div style={{display:'flex',backgroundColor:'#ffffff',justifyContent:'center'}}>
+                <h1 className="font1" style={{fontSize:'250%'}}><span style={{backgroundColor:'#82E0AA',color:'white',paddingLeft:'10px',paddingRight:'10px',borderRadius:'3px',paddingTop:'6px',paddingBottom:'6px'}}>{props.location.query.name}</span></h1>
+                
+            </div>
+            <div style={{display:'flex',justifyContent:'center',backgroundColor:'#ffffff',}}>
+                <div style={{width:'700px'}}>
+                    <h5 className="font1" style={{fontSize:'180%',textAlign:'center',backgroundColor:'#FFC074',color:'white',paddingLeft:'10px',paddingRight:'10px',borderRadius:'8px',paddingTop:'10px',paddingBottom:'10px'}}>{props.location.query.desc}</h5>
+                </div>
+                
+            </div>
         </div>
+        
     )
 }

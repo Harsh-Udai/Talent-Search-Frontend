@@ -10,6 +10,10 @@ import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import axios from 'axios';
 import Backdrop from '../Components/Backdrop';
+import CancelIcon from '@material-ui/icons/Cancel';
+import IconButton from '@material-ui/core/IconButton';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,6 +104,32 @@ export default function MiddleDividers(props) {
     }
   }
 
+
+  const deleteScript = ()=>{
+    
+
+    props.spin(true);
+    axios.delete('http://localhost:5000/ScriptDelete',{
+          headers:{
+            'Authorization': `Bearer ${props.Token}`
+          },
+          data:{
+            id: props.id,
+            email:props.logUser
+          }
+        })
+        .then((data)=>{
+         
+          props.array();
+          props.spin(false);
+         
+        })
+        .catch((e)=>{
+          console.log(e);
+        })
+
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.section1}>
@@ -131,6 +161,12 @@ export default function MiddleDividers(props) {
         
         <Button onClick={valueCounter} color="primary"><ExposurePlus1Icon /></Button>
         <Chip variant="outlined" color="primary" label={<span className="font1">{"Likes:" +sum}</span>} />
+
+        {props.danger==='show' ? 
+        <IconButton aria-label="settings"  style={{marginLeft:'25px'}}>
+          <CancelIcon onClick={deleteScript} color="primary"  />
+        </IconButton> : null}
+
       </div>
 
       <Backdrop start={start} />

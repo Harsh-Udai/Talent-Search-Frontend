@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MiniDrawer(props) {
 
-  console.log(props);
+  // console.log(props);
 
   useEffect(()=>{
     

@@ -16,9 +16,9 @@ export default function Entry(props) {
         
         if(hmm1!==null){
             const kk = {Name:decode(hmm1.milestone),init_token:hmm1.milestone1,Email:decode(hmm1.milestone2)}
-            console.log(kk)
+            // console.log(kk)
             props.setuser(kk)
-            console.log(props);
+            // console.log(props);
             return <Redirect to='/Dashboard' />
         }
         else{

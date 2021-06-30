@@ -17,9 +17,12 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import BackD from '../Components/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import CancelIcon from '@material-ui/icons/Cancel';
+import IconButton from '@material-ui/core/IconButton';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -46,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+
+
+
 function Media(props) {
   
     const classes = useStyles();
@@ -55,7 +61,29 @@ function Media(props) {
   
     const [sum,setSum] = useState(likes);
     
-    
+    const DeleteImg = ()=>{
+      
+      props.spin(true);
+
+      axios.delete('http://localhost:5000/ImageDelete',{
+          headers:{
+            'Authorization': `Bearer ${props.Token}`
+          },
+          data:{
+            id: props.id,
+            email:props.logUser
+          }
+        })
+        .then((data)=>{
+         
+          props.array();
+          props.spin(false);
+         
+        })
+        .catch((e)=>{
+          console.log(e);
+        })
+    }
     
   
     const valueCounter = ()=>{
@@ -121,7 +149,15 @@ function Media(props) {
             <span className="font1">{props.data.ContentLabel}</span>
           }
           subheader={<span className="font1">{`@${props.data.owner}`}</span> }
+          action={
+            
+              <IconButton aria-label="settings">
+                <CancelIcon onClick={DeleteImg} />
+              </IconButton>
+            
+          }
         />
+        
         <CardMedia
             className={classes.media}
             image={props.Key}
@@ -142,6 +178,9 @@ function Media(props) {
         <div style={{margin:'10px'}}>
           <Button onClick={valueCounter} style={{color:'#FF7F50',marginRight:'10px'}}><FavoriteIcon /></Button>
           <Chip style={{color:'#FF7F50'}} variant="outlined"  label={<span className="font1">{"Likes:" +sum}</span>} />
+          
+         
+          
         </div>
        </Card>
     );
@@ -157,6 +196,31 @@ function MediaV(props) {
   
     const [sum,setSum] = useState(likes);
     
+    const deleteVideo = ()=>{
+      console.log("hello World");
+      
+      props.spin(true);
+
+      axios.delete('http://localhost:5000/VideoDelete',{
+          headers:{
+            'Authorization': `Bearer ${props.Token}`
+          },
+          data:{
+            id: props.id,
+            email:props.logUser
+          }
+        })
+        .then((data)=>{
+         
+          props.array();
+          props.spin(false);
+         
+        })
+        .catch((e)=>{
+          console.log(e);
+        })
+
+    }
     
   
     const valueCounter = ()=>{
@@ -214,7 +278,7 @@ function MediaV(props) {
       <Grid container wrap="wrap">
         
           <Box  width={310} marginRight={3.5} my={5}>
-            
+
           <Link style={{textDecoration:'none',color:'black'}} to={{ pathname: '/Dashboard/Videos/Play', query: { id:props.data.id,URL: props.data.URL}} }><CardMedia
                 className={classes.media}
                 image={props.data.URL_Image}
@@ -236,6 +300,10 @@ function MediaV(props) {
                 
                 <Chip label={<span className="font1">{'Likes '+sum}</span>} />
                 <Button onClick={valueCounter} color="primary"><ThumbUpAltIcon style={{ color: '#616A6B' }}  /></Button>
+                <IconButton aria-label="settings" style={{marginLeft:'45px'}}>
+                  <CancelIcon onClick={deleteVideo}  />
+                </IconButton>
+                
               </div>
             
           </Box>
@@ -260,58 +328,64 @@ export default function Profile(props) {
     const [prog,setProg] = useState(false);
     // console.log(props);
 
+    const spinn = (val)=>{
+      setProg(val);
+    }
+
     const [images,setImages] = useState([]);
     const [videos,setVideos] = useState([]);
     const [scripts,setScripts] = useState([]);
     const [bio,setBio] = useState("");
 
+    const imgD = async()=>{
+      const res = await axios.get('http://localhost:5000/getImages',{
+          params:{
+              email:props.main.talent_setter.Email
+          },
+          headers:{
+            'Authorization': `Bearer ${props.main.talent_setter.Token}`
+          }
+      })
+      setImages(res.data);
+  }
+  const scrD = async()=>{
+      const res = await await axios.get('http://localhost:5000/getScripts',{
+          params:{
+              email:props.main.talent_setter.Email
+          },
+          headers:{
+            'Authorization': `Bearer ${props.main.talent_setter.Token}`
+          }
+      })
+      setScripts(res.data);
+  }
+  const vidD = async()=>{
+      const res = await await axios.get('http://localhost:5000/getVideos',{
+          params:{
+              email:props.main.talent_setter.Email
+          },
+          headers:{
+            'Authorization': `Bearer ${props.main.talent_setter.Token}`
+          }
+      })
+      setVideos(res.data);
+  }
+  const bioD = async()=>{
+    const res = await await axios.get('http://localhost:5000/getBio',{
+        params:{
+            email:props.main.talent_setter.Email
+        },
+        headers:{
+          'Authorization': `Bearer ${props.main.talent_setter.Token}`
+        }
+    })
+    setProg(false);
+    setBio(res.data[0].Bio);
+}
+
     useEffect(()=>{
         setProg(true);
-        const imgD = async()=>{
-            const res = await axios.get('http://localhost:5000/getImages',{
-                params:{
-                    email:props.main.talent_setter.Email
-                },
-                headers:{
-                  'Authorization': `Bearer ${props.main.talent_setter.Token}`
-                }
-            })
-            setImages(res.data);
-        }
-        const scrD = async()=>{
-            const res = await await axios.get('http://localhost:5000/getScripts',{
-                params:{
-                    email:props.main.talent_setter.Email
-                },
-                headers:{
-                  'Authorization': `Bearer ${props.main.talent_setter.Token}`
-                }
-            })
-            setScripts(res.data);
-        }
-        const vidD = async()=>{
-            const res = await await axios.get('http://localhost:5000/getVideos',{
-                params:{
-                    email:props.main.talent_setter.Email
-                },
-                headers:{
-                  'Authorization': `Bearer ${props.main.talent_setter.Token}`
-                }
-            })
-            setVideos(res.data);
-        }
-        const bioD = async()=>{
-          const res = await await axios.get('http://localhost:5000/getBio',{
-              params:{
-                  email:props.main.talent_setter.Email
-              },
-              headers:{
-                'Authorization': `Bearer ${props.main.talent_setter.Token}`
-              }
-          })
-          setProg(false);
-          setBio(res.data[0].Bio);
-      }
+        
 
         imgD();
         scrD();
@@ -333,10 +407,15 @@ export default function Profile(props) {
     };
     const changeMade = (val,dt)=>{
     
-        setISG(true);
-        setOpen(true);
-        setData(dt)
-      }
+      setISG(true);
+      setOpen(true);
+      setData(dt)
+    }
+
+    if(props.main.talent_setter.Email===''){
+        return <Redirect to="/Dashboard" />
+    }
+
 
     return(
         <div className="decor">
@@ -368,7 +447,7 @@ export default function Profile(props) {
                         images.length > 0 ? 
                         images.map((data,index)=>{
             
-                            return <Media Token={props.main.talent_setter.Token} id={data.id} logUser={props.main.talent_setter.Email} ch={starBack} likes={data.likes} changeMade={changeMade} data={data} Key={data.URL} />
+                            return <Media array={imgD} spin={spinn} Token={props.main.talent_setter.Token} id={data.id} logUser={props.main.talent_setter.Email} ch={starBack} likes={data.likes} changeMade={changeMade} data={data} Key={data.URL} />
                           }) 
                          
                         : <div style={{textAlign:'center',marginLeft:'50px'}}><h1 className="font1">No Content</h1></div>
@@ -397,7 +476,7 @@ export default function Profile(props) {
                         scripts.length > 0 ? 
                          
                         scripts.map((data,index)=>{
-                            return <div style={{margin:'10px'}} key={index}> <CardS Token={props.main.talent_setter.Token} ch={starBack} likes={data.likes} id={data.id} URL={data.URL} email1={data.email} email={data.owner} label={data.ContentLabel} desc={data.ContentDescription} /> </div>
+                            return <div style={{margin:'10px'}} key={index}> <CardS array={scrD} spin={spinn} danger="show" Token={props.main.talent_setter.Token} ch={starBack} likes={data.likes} id={data.id} URL={data.URL} email1={data.email} email={data.owner} label={data.ContentLabel} desc={data.ContentDescription} /> </div>
                         })
                          
                         : <div style={{textAlign:'center',marginLeft:'50px'}}><h1 className="font1">No Content</h1></div>
@@ -414,7 +493,7 @@ export default function Profile(props) {
                     {
                         videos.length > 0 ? 
                         videos.map((data,index)=>{
-                            return <div key={index}><MediaV Token={props.main.talent_setter.Token} logUser={props.main.talent_setter.Email} ch={starBack} data={data} loading /></div>
+                            return <div key={index}><MediaV array={vidD} spin={spinn} id={data.id} Token={props.main.talent_setter.Token} logUser={props.main.talent_setter.Email} ch={starBack} data={data} loading /></div>
                         })
                          
                         : <div style={{textAlign:'center',marginLeft:'50px'}}><h1 className="font1">No Content</h1></div>

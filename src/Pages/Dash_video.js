@@ -46,7 +46,7 @@ function Media(props) {
       
       setcount(count+1);
       props.ch(true)
-      axios.post('http://localhost:5000/VideosLikes',{
+      axios.post('https://talentsearchio.herokuapp.com/VideosLikes',{
         id: props.data.id,
         status: 'increment',
         email:props.logUser
@@ -69,7 +69,7 @@ function Media(props) {
     else{
       setcount(count-1);
       props.ch(true);
-      axios.post('http://localhost:5000/VideosLikes',{
+      axios.post('https://talentsearchio.herokuapp.com/VideosLikes',{
         id: props.data.id,
         status: 'decrement',
         email:props.logUser
@@ -141,7 +141,7 @@ export default function YouTube(props) {
   }
   useEffect(()=>{
     setProg(true);
-    axios.get('http://localhost:5000/Videos',{
+    axios.get('https://talentsearchio.herokuapp.com/Videos',{
       headers:{
         'Authorization': `Bearer ${props.main.talent_setter.Token}`
       }

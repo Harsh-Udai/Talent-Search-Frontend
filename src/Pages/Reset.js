@@ -140,7 +140,7 @@ export default function Reset(){
             setBar(true)
             setRE(false);
             setNS(false);
-            axios.post('http://localhost:5000/Reset/update',{
+            axios.post('https://talentsearchio.herokuapp.com/Reset/update',{
                 Email:email,
                 Password:password
             })

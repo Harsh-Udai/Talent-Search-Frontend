@@ -61,7 +61,7 @@ function Media(props) {
       
       setcount(count+1);
       props.ch(true)
-      axios.post('http://localhost:5000/ImagesLikes',{
+      axios.post('https://talentsearchio.herokuapp.com/ImagesLikes',{
         id: props.id,
         status: 'increment',
         email:props.logUser
@@ -84,7 +84,7 @@ function Media(props) {
     else{
       setcount(count-1);
       props.ch(true);
-      axios.post('http://localhost:5000/ImagesLikes',{
+      axios.post('https://talentsearchio.herokuapp.com/ImagesLikes',{
         id: props.id,
         status: 'decrement',
         email:props.logUser
@@ -175,7 +175,7 @@ export default function Facebook(props) {
 
   useEffect(()=>{
     setProg(true);
-    axios.get('http://localhost:5000/Images',{
+    axios.get('https://talentsearchio.herokuapp.com/Images',{
       headers:{
         'Authorization': `Bearer ${props.main.talent_setter.Token}`
       }

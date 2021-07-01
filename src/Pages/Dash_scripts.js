@@ -40,7 +40,7 @@ export default function Facebook(props) {
 
   useEffect(()=>{
     setProg(true);
-    axios.get('http://localhost:5000/Scripts',{
+    axios.get('https://talentsearchio.herokuapp.com/Scripts',{
       headers:{
         'Authorization': `Bearer ${props.main.talent_setter.Token}`
       }

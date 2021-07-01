@@ -141,7 +141,7 @@ export default function Signup(){
             setFC(true);
             setDetail(false);
 
-            axios.post('http://localhost:5000/Signup/email',{
+            axios.post('https://talentsearchio.herokuapp.com/Signup/email',{
                 Email:email
             })
             .then((data)=>{
@@ -195,7 +195,7 @@ export default function Signup(){
         else{
             setBar(true)
             setRE(false);
-            axios.post('http://localhost:5000/Signup/create',{
+            axios.post('https://talentsearchio.herokuapp.com/Signup/create',{
                 Name:name,
                 Email:email,
                 Password:pass,

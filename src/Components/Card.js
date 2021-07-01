@@ -59,7 +59,7 @@ export default function MiddleDividers(props) {
       
       setcount(count+1);
       setStart(true)
-      axios.post('http://localhost:5000/ScriptLikes',{
+      axios.post('https://talentsearchio.herokuapp.com/ScriptLikes',{
         id: props.id,
         status: 'increment',
         email:props.main.talent_setter.Email
@@ -83,7 +83,7 @@ export default function MiddleDividers(props) {
     else{
       setcount(count-1);
       setStart(true);
-      axios.post('http://localhost:5000/ScriptLikes',{
+      axios.post('https://talentsearchio.herokuapp.com/ScriptLikes',{
         id: props.id,
         status: 'decrement',
         email:props.main.talent_setter.Email
@@ -109,7 +109,7 @@ export default function MiddleDividers(props) {
     
 
     props.spin(true);
-    axios.delete('http://localhost:5000/ScriptDelete',{
+    axios.delete('https://talentsearchio.herokuapp.com/ScriptDelete',{
           headers:{
             'Authorization': `Bearer ${props.Token}`
           },

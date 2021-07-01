@@ -168,7 +168,7 @@ export default function FullScreenDialog(props) {
           };
  
           
-          axios.post("http://localhost:5000/ImageUpload",formData,config)
+          axios.post("https://talentsearchio.herokuapp.com/ImageUpload",formData,config)
               .then((response) => {
                 
                   setSuccess(true);
@@ -221,7 +221,7 @@ export default function FullScreenDialog(props) {
           };
 
           
-          axios.post("http://localhost:5000/VideoUpload",formData,config)
+          axios.post("https://talentsearchio.herokuapp.com/VideoUpload",formData,config)
               .then((response) => {
                   
                   setSuccess(true);
@@ -273,7 +273,7 @@ export default function FullScreenDialog(props) {
           };
 
           
-          axios.post("http://localhost:5000/ScriptUpload",formData,config)
+          axios.post("https://talentsearchio.herokuapp.com/ScriptUpload",formData,config)
               .then((response) => {
                   
                   setSuccess(true);

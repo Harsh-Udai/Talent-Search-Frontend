@@ -11,7 +11,7 @@ export default function VideoPlay(props) {
 
         if(props.location.query!==undefined){
             const updateViews = async()=>{
-                await axios.post('http://localhost:5000/VideosViews',{
+                await axios.post('https://talentsearchio.herokuapp.com/VideosViews',{
                     id: props.location.query.id,
                     email: props.main.talent_setter.Email
                 },{

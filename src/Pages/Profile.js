@@ -65,7 +65,7 @@ function Media(props) {
       
       props.spin(true);
 
-      axios.delete('http://localhost:5000/ImageDelete',{
+      axios.delete('https://talentsearchio.herokuapp.com/ImageDelete',{
           headers:{
             'Authorization': `Bearer ${props.Token}`
           },
@@ -92,7 +92,7 @@ function Media(props) {
         
         setcount(count+1);
         props.ch(true)
-        axios.post('http://localhost:5000/ImagesLikes',{
+        axios.post('https://talentsearchio.herokuapp.com/ImagesLikes',{
           id: props.id,
           status: 'increment',
           email:props.logUser
@@ -115,7 +115,7 @@ function Media(props) {
       else{
         setcount(count-1);
         props.ch(true);
-        axios.post('http://localhost:5000/ImagesLikes',{
+        axios.post('https://talentsearchio.herokuapp.com/ImagesLikes',{
           id: props.id,
           status: 'decrement',
           email:props.logUser
@@ -201,7 +201,7 @@ function MediaV(props) {
       
       props.spin(true);
 
-      axios.delete('http://localhost:5000/VideoDelete',{
+      axios.delete('https://talentsearchio.herokuapp.com/VideoDelete',{
           headers:{
             'Authorization': `Bearer ${props.Token}`
           },
@@ -229,7 +229,7 @@ function MediaV(props) {
         
         setcount(count+1);
         props.ch(true)
-        axios.post('http://localhost:5000/VideosLikes',{
+        axios.post('https://talentsearchio.herokuapp.com/VideosLikes',{
           id: props.data.id,
           status: 'increment',
           email:props.logUser
@@ -252,7 +252,7 @@ function MediaV(props) {
       else{
         setcount(count-1);
         props.ch(true);
-        axios.post('http://localhost:5000/VideosLikes',{
+        axios.post('https://talentsearchio.herokuapp.com/VideosLikes',{
           id: props.data.id,
           status: 'decrement',
           email:props.logUser
@@ -338,7 +338,7 @@ export default function Profile(props) {
     const [bio,setBio] = useState("");
 
     const imgD = async()=>{
-      const res = await axios.get('http://localhost:5000/getImages',{
+      const res = await axios.get('https://talentsearchio.herokuapp.com/getImages',{
           params:{
               email:props.main.talent_setter.Email
           },
@@ -349,7 +349,7 @@ export default function Profile(props) {
       setImages(res.data);
   }
   const scrD = async()=>{
-      const res = await await axios.get('http://localhost:5000/getScripts',{
+      const res = await await axios.get('https://talentsearchio.herokuapp.com/getScripts',{
           params:{
               email:props.main.talent_setter.Email
           },
@@ -360,7 +360,7 @@ export default function Profile(props) {
       setScripts(res.data);
   }
   const vidD = async()=>{
-      const res = await await axios.get('http://localhost:5000/getVideos',{
+      const res = await await axios.get('https://talentsearchio.herokuapp.com/getVideos',{
           params:{
               email:props.main.talent_setter.Email
           },
@@ -371,7 +371,7 @@ export default function Profile(props) {
       setVideos(res.data);
   }
   const bioD = async()=>{
-    const res = await await axios.get('http://localhost:5000/getBio',{
+    const res = await await axios.get('https://talentsearchio.herokuapp.com/getBio',{
         params:{
             email:props.main.talent_setter.Email
         },

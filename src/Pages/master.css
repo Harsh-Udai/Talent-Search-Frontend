@@ -30,4 +30,27 @@
     background-size: cover;
 }
 
-/* //background-image: url('../Assets/adminlogin1.jpg'); */
+
+@media only screen and (max-width: 750px) {
+    .headO{
+       
+        width: 100%;
+        
+    }
+    .dashFT{
+        font-size: 70%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .dashIm{
+        width: 300px;
+    }
+    .dashIm1{
+        width: 200px;
+        margin-bottom: -100px;
+    }
+    .dashIm2{
+        width: 200px;
+        margin-bottom: -200px;
+    }
+  }

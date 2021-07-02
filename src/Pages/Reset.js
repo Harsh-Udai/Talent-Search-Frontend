@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
       '& > *': {
         margin: theme.spacing(2),
         width: '35ch',
+        [theme.breakpoints.between(0, 600)]: {
+            width: '30ch',
         
+        },
       },
     },
 }));
@@ -165,10 +168,12 @@ export default function Reset(){
             
             <Navbar />
             {Line ? <Back start={Line} /> :null}
-            <div className="resetD">
-                <img alt="." style={{marginTop:'-150px'}} width="30%" src={imageD} />
-                <div style={{color:'black',marginTop:'120px'}}>
-                    <div style={{backgroundColor:'white',height:'330px',marginBottom:'30px',padding:'30px',borderRadius:'7px',textAlign:'center'}}>
+            <div className="resetD1">
+
+                <img className="resetIm" alt="." style={{marginTop:'-150px'}} width="30%" src={imageD} />
+
+                <div className="resetB">
+                    <div style={{backgroundColor:'white',height:'330px',marginBottom:'30px',padding:'20px',borderRadius:'7px',textAlign:'center'}}>
                     <p className="SignupText font1">Reset Password</p>
                         <form onSubmit={HandleLogin} className={classes.root} autoComplete="off">
                             

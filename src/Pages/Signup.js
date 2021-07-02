@@ -23,8 +23,15 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         marginLeft: theme.spacing(3),
         marginRight: theme.spacing(3),
-        width: '40ch',
+        width: '37ch',
+        [theme.breakpoints.between(0, 1000)]: {
+            width: '33ch',
         
+        },
+        [theme.breakpoints.between(0, 400)]: {
+            width: '30ch',
+        
+        },
       },
     },
 }));
@@ -221,13 +228,13 @@ export default function Signup(){
             <Navbar />
             <div className="signup">
                 
-                <div style={{width:'50%'}}>
-                    <img style={{marginTop:'70px'}} src={imgageg} width="70%"></img>
+                <div className="imgconta" style={{margin:'30px'}}>
+                    <img className="imgSignup" style={{marginTop:'70px'}} src={imgageg} width="70%"></img>
                     <p style={{fontSize:'300%',color:'white'}}>Subscribe, Explore & Enjoy</p>
                 </div>
 
-            <div style={{height:'73%',borderRadius:'10px',marginTop:'60px',backgroundColor:'white'}}>
-                <div style={{padding:'10px',borderRadius:'7px',textAlign:'center'}}>
+            <div className="signupForm" >
+                <div style={{marginBottom:'30px',padding:'10px',height:'530px',borderRadius:'7px',textAlign:'center'}}>
                     <p className="SignupText font1">Signup</p>
                     <form className={classes.root}>
                         
@@ -245,6 +252,7 @@ export default function Signup(){
                             <span style={{width:'70px',fontSize:'120%',textTransform:'capitalize'}} className="font1">Signup</span>
                             </Button>
                         </div>
+                        
                     </form>
                                         
                     
@@ -265,16 +273,17 @@ export default function Signup(){
                     
                     <Greet photo={Image_Greet} text="Created" start={finalSC} />
 
-                </div>
-                {detail ? <div style={{display:'flex',justifyContent: 'center',marginTop:'50px'}}>
-                <br></br>
-                    <Alert style={{width:'230px'}} severity="error"><span className="font1">Check All the Fields!</span></Alert> 
-                </div> : null}
+                    {detail ? <div className="alert1" style={{display:'flex',justifyContent: 'center',marginTop:'40px',paddingBottom:'10px'}}>
+                        <br></br>
+                            <Alert style={{width:'230px'}} severity="error"><span className="font1">Check All the Fields!</span></Alert> 
+                        </div> : null}
 
-                {emailU ? <div style={{display:'flex',justifyContent: 'center',marginTop:'50px'}}>
-                <br></br>
-                    <Alert style={{width:'230px'}} severity="error"><span className="font1">Email in USE!</span></Alert> 
-                </div> : null}
+                        {emailU ? <div className="alert1" style={{display:'flex',justifyContent: 'center',marginTop:'40px',paddingBottom:'10px'}}>
+                        <br></br>
+                            <Alert style={{width:'230px'}} severity="error"><span className="font1">Email in USE!</span></Alert> 
+                        </div> : null}
+                </div>
+                
             </div>
             
             

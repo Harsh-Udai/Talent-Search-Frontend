@@ -447,7 +447,7 @@ export default function Profile(props) {
                         images.length > 0 ? 
                         images.map((data,index)=>{
             
-                            return <Media array={imgD} spin={spinn} Token={props.main.talent_setter.Token} id={data.id} logUser={props.main.talent_setter.Email} ch={starBack} likes={data.likes} changeMade={changeMade} data={data} Key={data.URL} />
+                            return <div key={index}><Media array={imgD} spin={spinn} Token={props.main.talent_setter.Token} id={data.id} logUser={props.main.talent_setter.Email} ch={starBack} likes={data.likes} changeMade={changeMade} data={data} Key={data.URL} /></div>
                           }) 
                          
                         : <div style={{textAlign:'center',marginLeft:'50px'}}><h1 className="font1">No Content</h1></div>

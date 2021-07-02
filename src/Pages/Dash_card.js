@@ -211,7 +211,7 @@ export default function Facebook(props) {
 
             images.map((data,index)=>{
               
-              return <Media Token={props.main.talent_setter.Token} id={data.id} logUser={props.main.talent_setter.Email} ch={starBack} likes={data.likes} changeMade={changeMade} data={data} Key={data.URL} />
+              return <div key={index}><Media Token={props.main.talent_setter.Token} id={data.id} logUser={props.main.talent_setter.Email} ch={starBack} likes={data.likes} changeMade={changeMade} data={data} Key={data.URL} /></div>
             })
             : null
           }

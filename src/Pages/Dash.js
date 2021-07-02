@@ -219,11 +219,12 @@ export default function MiniDrawer(props) {
       onClose={handleMobileMenuClose}
     >
       
-      <MenuItem onClick={handleProfileMenuOpen}>
+      
         
-        <p>Profile</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen1}>
+      <Link to="/dashboard/Profile" style={{textDecoration:'none',color:'black'}}><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
+      
+     
+      <MenuItem onClick={handleMenuClose1}>
         
         <p>Logout</p>
       </MenuItem>

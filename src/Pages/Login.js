@@ -10,7 +10,8 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import imgeL from '../Assets/mode1.svg';
 import CircularProgress from '@material-ui/core/CircularProgress';
- 
+import './login.css';
+
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -21,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
       '& > *': {
         margin: theme.spacing(2),
         width: '35ch',
+        [theme.breakpoints.between(0, 1000)]: {
+            width: '30ch',
         
+          },
       },
     },
 }));
@@ -134,9 +138,9 @@ export default function Login(props){
             <Navbar />
             {/* {Line ? <Back start={Line} /> :null} */}
             <div className="resetD">
-                <img style={{marginTop:'-100px'}} src={imgeL} width="50%" />
+                <img className="loginImage" src={imgeL} width="50%" />
             
-                    <div style={{marginTop:'100px'}}>
+                    <div className="loginForm" >
                         <div style={{marginBottom:'30px',backgroundColor:'white',padding:'20px',height:'390px',borderRadius:'10px',textAlign:'center'}}>
                         <p className="SignupText font1"><span>Login</span></p>
                             <form className={classes.root} autoComplete="off">
@@ -164,11 +168,11 @@ export default function Login(props){
                             </Link>
 
                         </div>
-                    {red ?<div style={{display:'flex',justifyContent: 'center'}}>
+                    {red ?<div style={{display:'flex',justifyContent: 'center' ,marginBottom:'30px'}}>
                             <Alert style={{width:'230px',height:'32px',fontSize:'90%'}} severity="error"><span className="font1">Check Details!</span></Alert>
                         </div>:null}
 
-                        {wrong ?<div style={{display:'flex',justifyContent: 'center'}}>
+                        {wrong ?<div style={{display:'flex',justifyContent: 'center' ,marginBottom:'30px'}}>
                             <Alert style={{width:'230px',height:'32px',fontSize:'90%'}} severity="error"><span className="font1">No Account!</span></Alert>
                         </div>:null}
 

@@ -46,7 +46,10 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
       width: '45ch',
-      
+      [theme.breakpoints.between(0, 550)]: {
+        width: '30ch',
+    
+      },
     },
   },
   root1: {
@@ -507,7 +510,7 @@ export default function FullScreenDialog(props) {
 
             <div style={{display:'flex',justifyContent:'space-around',flexWrap:'wrap'}}>
             
-              <img alt="." src={imager} width="500px" height="550px" />
+              <img className="addFormI" alt="." src={imager} width="500px" height="550px" />
 
               
               <div style={{display:'flex',justifyContent:'center', marginTop:'50px'}} className="conti-form">

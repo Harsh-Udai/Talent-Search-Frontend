@@ -30,6 +30,16 @@
     background-size: cover;
 }
 
+@media only screen and (max-width: 550px) {
+    .conti-form{
+        width: 320px;
+        margin-bottom: 50px;
+    }
+    .addFormI{
+        width: 80%;
+        height: 80%;
+    }
+}
 
 @media only screen and (max-width: 750px) {
     .headO{
@@ -54,3 +64,4 @@
         margin-bottom: -200px;
     }
   }
+

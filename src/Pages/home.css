@@ -76,3 +76,22 @@
     color:white;
     font-family: 'Kirang Haerang', cursive;
 }
+
+
+@media only screen and (max-width: 400px) {
+    .textHomeB{
+        margin: auto;
+        font-size: 85%;
+        text-align: center;
+        margin: 10px;
+        margin-right: 20px;
+    }
+    .sect-2H{
+        font-size: 80%;
+        text-align: center;
+    }
+    .textHomeB1{
+        font-size: 80%;
+        margin: 20px;
+    }
+}

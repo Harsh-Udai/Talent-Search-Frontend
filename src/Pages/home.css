@@ -27,7 +27,7 @@
 .sect-2H{
     
     width: 100%;
-    height: 90%;
+    height: 80vh;
     background-color: #B6C867;
 }
 .buttonH{
@@ -68,13 +68,25 @@
     /* top: 185.8%;
     left: 0; */
     width: 100%;
-    height: 100%;
+    height: 100vh;
     text-align: center;
 }
 .textHomeB1{
     margin-top: 180px;
     color:white;
     font-family: 'Kirang Haerang', cursive;
+}
+
+@media only screen and (max-width: 700px) {
+   .textHomeB{
+        font-size: 85%;
+   }
+    .sect-2H{
+        font-size: 70%;
+        text-align: center;
+        margin-bottom: 0px;
+    }
+    
 }
 
 
@@ -86,9 +98,10 @@
         margin: 10px;
         margin-right: 20px;
     }
-    .sect-2H{
-        font-size: 80%;
+    .sect-2H div{
+        font-size: 90%;
         text-align: center;
+        margin-bottom: 0px;
     }
     .textHomeB1{
         font-size: 80%;

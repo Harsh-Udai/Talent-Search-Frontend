@@ -279,7 +279,7 @@ function MediaV(props) {
         
           <Box  width={310} marginRight={3.5} my={5}>
 
-          <Link style={{textDecoration:'none',color:'black'}} to={{ pathname: '/Dashboard/Videos/Play', query: { id:props.data.id,URL: props.data.URL}} }><CardMedia
+          <Link style={{textDecoration:'none',color:'black'}} to={{ pathname: '/Dashboard/Videos/Play', query: { id:props.data.id,URL: props.data.URL,name: props.data.ContentLabel, desc: props.data.ContentDescription}} }><CardMedia
                 className={classes.media}
                 image={props.data.URL_Image}
                 title={props.data.ContentLabel}
@@ -287,7 +287,7 @@ function MediaV(props) {
                       
               <Box pr={2}>
                 <Typography style={{marginTop:'10px'}} gutterBottom variant="body2">
-                  <span style={{fontSize:'120%'}} className="font1"><Link style={{textDecoration:'none',color:'black'}} to={{ pathname: '/video', query: { URL: props.data.URL}} }>{props.data.ContentLabel}</Link></span>
+                  <span style={{fontSize:'120%'}} className="font1"><Link style={{textDecoration:'none',color:'black'}} to={{ pathname: '/Dashboard/Videos/Play', query: { id:props.data.id,URL: props.data.URL,name: props.data.ContentLabel, desc: props.data.ContentDescription}} }>{props.data.ContentLabel}</Link></span>
                 </Typography>
                 <Typography display="block" variant="caption" color="textSecondary">
                 <span style={{fontSize:'120%'}} className="font1">@{props.data.owner}</span>

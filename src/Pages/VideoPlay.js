@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom';
 
 export default function VideoPlay(props) {
 
-    console.log(props);
+   
     
     useEffect(()=>{
 

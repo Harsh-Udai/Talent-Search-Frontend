@@ -90,7 +90,7 @@ export default function Reset(){
             setL(true)
             setR(false)
 
-            axios.post('http://localhost:5000/Reset/email',{
+            axios.post('https://talentsearchio.herokuapp.com/Reset/email',{
                 Email:email
             })
             .then((data)=>{
